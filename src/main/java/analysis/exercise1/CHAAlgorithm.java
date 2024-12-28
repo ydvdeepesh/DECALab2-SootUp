@@ -2,6 +2,8 @@ package analysis.exercise1;
 
 import analysis.CallGraph;
 import analysis.CallGraphAlgorithm;
+import clojure.lang.Var;
+
 import java.util.*;
 import javax.annotation.Nonnull;
 import java.util.stream.Stream;
@@ -14,6 +16,7 @@ import sootup.core.jimple.common.stmt.JInvokeStmt;
 import sootup.core.jimple.common.stmt.Stmt;
 import sootup.core.model.SootClassMember;
 import sootup.core.signatures.MethodSignature;
+import sootup.java.core.JavaSootClass;
 import sootup.java.core.views.JavaView;
 
 public class CHAAlgorithm extends CallGraphAlgorithm {
@@ -52,7 +55,7 @@ public class CHAAlgorithm extends CallGraphAlgorithm {
 
             MethodSignature connectingMethod = stmt.getInvokeExpr().getMethodSignature();
             List<MethodSignature> methods = new ArrayList<>();
-            for (var classType : view.getClasses()) {
+            for (JavaSootClass classType : view.getClasses()) {
                 MethodSignature method =
                         identifierFactory.getMethodSignature(classType.getType(), stmt.getInvokeExpr().getMethodSignature().getSubSignature());
 
